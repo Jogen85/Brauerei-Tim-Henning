@@ -16,10 +16,10 @@ export default function Hero({
   return (
     <section className="relative overflow-hidden rounded-lg border border-muted/30 bg-primary">
       <div className="relative aspect-[16/9]">
-        {(videoUrl || "/api/hero-video") ? (
+        {(videoUrl || "/Video_Hero.webm") ? (
           <video
             className="h-full w-full object-cover"
-            src={videoUrl || "/api/hero-video"}
+            src={videoUrl || "/Video_Hero.webm"}
             poster={posterUrl}
             autoPlay
             playsInline

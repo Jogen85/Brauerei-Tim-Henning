@@ -1,4 +1,4 @@
-import { groq } from "groq";
+import groq from "groq";
 
 export const siteQuery = groq`*[_type == "site"][0]{
   title, heroSlogan, heroCtaLabel, heroCtaHref, heroVideo{url, poster},
@@ -20,4 +20,3 @@ export const upcomingEventsQuery = groq`*[_type == "event" && date >= now()]|ord
   _id, title, date, timeFrom, timeTo, location, mapsUrl, note, status,
   beers[]->{_id, name, slug}
 }`;
-
