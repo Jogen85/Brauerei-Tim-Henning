@@ -1,5 +1,4 @@
 import { clsx } from "clsx";
-import heroVideoFallback from "../Video_Hero.webm";
 
 export default function Hero({
   slogan,
@@ -17,10 +16,10 @@ export default function Hero({
   return (
     <section className="relative overflow-hidden rounded-lg border border-muted/30 bg-primary">
       <div className="relative aspect-[16/9]">
-        {(videoUrl || heroVideoFallback) ? (
+        {(videoUrl || "/api/hero-video") ? (
           <video
             className="h-full w-full object-cover"
-            src={videoUrl || (heroVideoFallback as any)}
+            src={videoUrl || "/api/hero-video"}
             poster={posterUrl}
             autoPlay
             playsInline
