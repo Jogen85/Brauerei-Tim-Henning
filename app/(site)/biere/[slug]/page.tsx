@@ -14,10 +14,11 @@ export async function generateStaticParams() {
   }
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   let beer: any = null;
   try {
-    beer = await sanityClient.fetch(beerBySlugQuery, { slug: params.slug });
+    beer = await sanityClient.fetch(beerBySlugQuery, { slug });
   } catch (_) {}
   if (!beer) return <div>Kein Bier gefunden oder Inhalte folgen.</div>;
   const fallbackForName = typeof beer?.name === "string" && beer.name.toLowerCase().includes("pale") ? (paleAleFallback as any) : null;
