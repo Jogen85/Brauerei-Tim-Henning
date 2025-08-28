@@ -15,11 +15,10 @@ const schema = z.object({
   turnstileToken: z.string().min(5)
 });
 
-async function verifyTurnstile(token: string, ip?: string) {
+async function verifyTurnstile(token: string) {
   const form = new URLSearchParams();
   form.append("secret", process.env.TURNSTILE_SECRET_KEY || "");
   form.append("response", token);
-  if (ip) form.append("remoteip", ip);
   const res = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
     method: "POST",
     body: form
@@ -49,19 +48,9 @@ async function sendMail(input: z.infer<typeof schema>) {
 
   if (process.env.RESEND_API_KEY) {
     const resend = new Resend(process.env.RESEND_API_KEY);
-    await resend.emails.send({
-      from,
-      to,
-      subject,
-      html
-    });
+    await resend.emails.send({ from, to, subject, html });
     // customer copy
-    await resend.emails.send({
-      from,
-      to: input.email,
-      subject: `${subject} – Kopie deiner Anfrage`,
-      html
-    });
+    await resend.emails.send({ from, to: input.email, subject: `${subject} – Kopie deiner Anfrage`, html });
     return;
   }
 
@@ -70,9 +59,7 @@ async function sendMail(input: z.infer<typeof schema>) {
     host: process.env.SMTP_HOST,
     port: Number(process.env.SMTP_PORT || 587),
     secure: process.env.SMTP_SECURE === "true",
-    auth: process.env.SMTP_USER
-      ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-      : undefined
+    auth: process.env.SMTP_USER ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS } : undefined
   });
   await transporter.sendMail({ from, to, subject, html });
   await transporter.sendMail({ from, to: input.email, subject: `${subject} – Kopie deiner Anfrage`, html });
@@ -81,7 +68,7 @@ async function sendMail(input: z.infer<typeof schema>) {
 export async function POST(req: NextRequest) {
   try {
     const input = schema.parse(await req.json());
-    const ok = await verifyTurnstile(input.turnstileToken, req.ip ?? undefined);
+    const ok = await verifyTurnstile(input.turnstileToken);
     if (!ok) return NextResponse.json({ error: "Turnstile-Validierung fehlgeschlagen" }, { status: 400 });
 
     await sendMail(input);
