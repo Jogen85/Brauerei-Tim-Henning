@@ -1,6 +1,8 @@
-import type { Metadata } from 'next';
+import type { Metadata } from 'next'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 
-import './globals.css';
+import './globals.css'
 
 export const metadata: Metadata = {
   title: {
@@ -61,12 +63,13 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://brauerei-hennings.de',
   },
-};
+  metadataBase: new URL('https://brauerei-hennings.de'),
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="de" className="h-full">
@@ -74,21 +77,21 @@ export default function RootLayout({
         {/* Skip to content link for accessibility */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:rounded focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brewery-off-white focus:text-brewery-dark-brown focus:rounded-lg focus:shadow-lg focus:ring-2 focus:ring-brewery-rust-red"
         >
           Zum Hauptinhalt springen
         </a>
         
         <div className="flex min-h-full flex-col">
-          {/* Header will be added here */}
+          <Header />
           
-          <main id="main-content" className="flex-1">
+          <main id="main-content" className="flex-1 pt-16 lg:pt-20">
             {children}
           </main>
           
-          {/* Footer will be added here */}
+          <Footer />
         </div>
       </body>
     </html>
-  );
+  )
 }

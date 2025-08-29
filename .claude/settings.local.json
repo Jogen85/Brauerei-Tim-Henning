@@ -19,7 +19,10 @@
       "Bash(npm run build:turbo:*)",
       "Bash(npm run build:*)",
       "WebFetch(domain:github.com)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(ffprobe:*)",
+      "Bash(npx kill-port:*)",
+      "WebFetch(domain:stackoverflow.com)"
     ],
     "deny": [],
     "ask": []
