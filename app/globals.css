@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+/* Custom CSS Variables for Brauerei Hennings Brand Colors */
+:root {
+  /* Primary Brauerei Color Palette */
+  --color-primary-dark-brown: #3B1F16;
+  --color-sand-beige: #D8C6B3;
+  --color-rust-red: #8A4B2D;
+  --color-off-white: #F2EEE9;
+  --color-brown-gray: #5F5047;
+  
+  /* Optional accent colors */
+  --color-hop-green: #6B7A4C;
+  --color-malt-yellow: #D3A95C;
+  
+  /* Text colors with proper contrast */
+  --color-text-primary: var(--color-primary-dark-brown);
+  --color-text-on-dark: var(--color-sand-beige);
+  --color-text-accent: var(--color-rust-red);
+}
+
+/* Base typography styles */
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+*:focus {
+  outline: 2px solid var(--color-rust-red);
+  outline-offset: 2px;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-off-white);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-rust-red);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark-brown);
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--color-rust-red);
+  color: white;
+}
+
+/* Skip link styles for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Custom button hover animations */
+.btn-brewery {
+  @apply transition-all duration-300 ease-in-out;
+  background-color: var(--color-rust-red);
+}
+
+.btn-brewery:hover {
+  @apply transform -translate-y-0.5 shadow-lg;
+  background-color: var(--color-primary-dark-brown);
+}
+
+/* Video optimization */
+video {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  
+  /* Disable bounce animation when reduced motion is preferred */
+  .animate-bounce {
+    animation: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  /* Hide video elements in print */
+  video {
+    display: none;
+  }
+  
+  /* Ensure text is black for printing */
+  * {
+    color: #000 !important;
+    background: transparent !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-text-primary: #000000;
+    --color-text-on-dark: #ffffff;
+  }
+}

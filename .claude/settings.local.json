@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(claude update)",
+      "WebFetch(domain:www.sanity.io)",
+      "WebFetch(domain:www.framer.com)",
+      "WebFetch(domain:web.dev)",
+      "WebFetch(domain:motion.dev)",
+      "WebSearch",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(npx create-next-app:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run dev:*)",
+      "Bash(npm run build:turbo:*)",
+      "Bash(npm run build:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
