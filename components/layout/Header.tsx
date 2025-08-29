@@ -114,7 +114,7 @@ export default function Header() {
                 className="flex items-center gap-3 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-rust-red focus-visible:ring-offset-2 rounded-lg"
                 aria-label="Handwerksbrauerei Hennings - Zur Startseite"
               >
-                <div className="relative w-12 h-12 lg:w-16 lg:h-16">
+                <div className="relative w-10 h-10 lg:w-12 lg:h-12">
                   <BreweryImage
                     src="/Logo.jpg"
                     alt="Handwerksbrauerei Hennings Logo"

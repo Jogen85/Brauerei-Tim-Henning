@@ -311,6 +311,18 @@ html {
     text-shadow: 2px 2px 4px color-mix(in srgb, var(--color-primary-dark-brown) 50%, transparent);
   }
 
+  .text-shadow {
+    text-shadow: 2px 2px 4px color-mix(in srgb, black 30%, transparent);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 3px 3px 6px color-mix(in srgb, black 40%, transparent);
+  }
+
+  .shadow-brewery-button {
+    box-shadow: 0 4px 14px 0 color-mix(in srgb, var(--color-rust-red) 35%, transparent);
+  }
+
   .backdrop-blur-brewery {
     backdrop-filter: blur(8px) brightness(0.8);
     -webkit-backdrop-filter: blur(8px) brightness(0.8);
@@ -321,6 +333,15 @@ html {
     animation: brewery-fade-in 0.8s ease-out;
   }
 
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out;
+    animation-fill-mode: both;
+  }
+
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s infinite;
+  }
+
   @keyframes brewery-fade-in {
     from {
       opacity: 0;
@@ -329,6 +350,29 @@ html {
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(2rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes bounce-gentle {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-0.5rem);
+    }
+    60% {
+      transform: translateY(-0.25rem);
     }
   }
 

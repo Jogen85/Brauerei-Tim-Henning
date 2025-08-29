@@ -49,9 +49,15 @@ export default function BreweryVideo({
     'square': 'aspect-square',
   }
 
-  // Intersection Observer for performance optimization
+  // Intersection Observer for performance optimization (skip for priority videos)
   useEffect(() => {
     if (!videoRef.current) return
+
+    // For priority videos (like hero), load immediately
+    if (priority) {
+      setShouldPlayVideo(true)
+      return
+    }
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -76,7 +82,7 @@ export default function BreweryVideo({
         observerRef.current.disconnect()
       }
     }
-  }, [shouldPlayVideo])
+  }, [shouldPlayVideo, priority])
 
   // Handle video events
   const handleVideoLoad = () => {
