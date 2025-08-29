@@ -22,7 +22,8 @@
       "Bash(git add:*)",
       "Bash(ffprobe:*)",
       "Bash(npx kill-port:*)",
-      "WebFetch(domain:stackoverflow.com)"
+      "WebFetch(domain:stackoverflow.com)",
+      "Bash(dir /s)"
     ],
     "deny": [],
     "ask": []

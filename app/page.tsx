@@ -1,72 +1,82 @@
-import BreweryVideo from '@/components/ui/BreweryVideo'
+import Image from 'next/image'
 import BreweryImage from '@/components/ui/BreweryImage'
 import BreweryButton from '@/components/ui/BreweryButton'
-import { BreweryHeroContainer } from '@/components/ui/BreweryContainer'
 
 export default function HomePage() {
   return (
     <>
       {/* Hero Section with Video Background */}
-      <section className="relative">
-        <BreweryHeroContainer>
-          {/* Hero Video Background */}
-          <BreweryVideo
-            src="/Video_Hero.webm"
-            posterSrc="/hero-poster.jpg"
-            alt="Handwerksbrauerei Hennings - Authentisches Bierbrauen"
-            priority
-            className="absolute inset-0 z-0"
-            containerClassName="absolute inset-0"
-          />
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+        {/* Hero Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/hero-poster.jpg"
+          >
+            <source src="/Video_Hero.webm" type="video/webm" />
+            {/* Fallback image */}
+            <Image
+              src="/hero-poster.jpg"
+              alt="Handwerksbrauerei Hennings"
+              fill
+              className="object-cover"
+              priority
+            />
+          </video>
+        </div>
 
-          {/* Hero Content */}
-          <div className="relative z-20 text-center text-brewery-sand-beige px-4 max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-shadow-lg animate-fade-in-up">
-              Handwerksbrauerei Hennings
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-shadow animate-fade-in-up [animation-delay:0.3s]">
-              Ehrlich gebrautes Bier aus Leezen, Mecklenburg-Vorpommern
-            </p>
-            
-            {/* Call to Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up [animation-delay:0.6s]">
-              <BreweryButton 
-                size="lg"
-                className="shadow-brewery-button"
-              >
-                Biere entdecken
-              </BreweryButton>
-              <BreweryButton 
-                variant="outline" 
-                size="lg"
-                className="border-2 border-brewery-sand-beige text-brewery-sand-beige hover:bg-brewery-sand-beige hover:text-brewery-dark-brown"
-              >
-                Nächste Verkaufstermine
-              </BreweryButton>
-            </div>
-          </div>
+        {/* Dark Overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/40 z-10" />
 
-          {/* Scroll Down Indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-            <div className="animate-bounce-gentle">
-              <svg
-                className="w-6 h-6 text-brewery-sand-beige drop-shadow-md"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-              <span className="sr-only">Nach unten scrollen</span>
-            </div>
+        {/* Hero Content */}
+        <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+            Handwerksbrauerei Hennings
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 drop-shadow-md">
+            Ehrlich gebrautes Bier aus Leezen, Mecklenburg-Vorpommern
+          </p>
+          
+          {/* Call to Action Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <BreweryButton 
+              size="lg"
+              className="shadow-brewery-button"
+            >
+              Biere entdecken
+            </BreweryButton>
+            <BreweryButton 
+              variant="outline" 
+              size="lg"
+              className="border-2 border-white text-white hover:bg-white hover:text-brewery-dark-brown"
+            >
+              Nächste Verkaufstermine
+            </BreweryButton>
           </div>
-        </BreweryHeroContainer>
+        </div>
+
+        {/* Scroll Down Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+          <div className="animate-bounce">
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
+        </div>
       </section>
 
       {/* Next Sales Date Section */}
