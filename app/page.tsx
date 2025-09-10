@@ -67,7 +67,7 @@ export default function HomePage() {
             </h1>
             
             <p className="text-xl md:text-3xl lg:text-4xl mb-12 text-shadow-xl font-medium text-brewery-off-white leading-relaxed">
-              <span className="italic text-brewery-sand-beige">"Ehrlich gebrautes Bier"</span><br />
+              <span className="italic text-brewery-sand-beige">&ldquo;Ehrlich gebrautes Bier&rdquo;</span><br />
               aus Leezen, Mecklenburg-Vorpommern
             </p>
             
@@ -163,7 +163,7 @@ export default function HomePage() {
                       <ul className="text-base text-brewery-brown-gray space-y-2 font-medium">
                         <li>• Hennings Pale Ale</li>
                         <li>• Helles Lagerbier</li>
-                        <li>• IPA "Hopfenbombe"</li>
+                        <li>• IPA &ldquo;Hopfenbombe&rdquo;</li>
                       </ul>
                     </div>
                   </StaggerItem>
@@ -235,7 +235,7 @@ export default function HomePage() {
                 Unsere Biere
               </h2>
               <p className="text-xl md:text-2xl text-brewery-sand-beige font-medium italic max-w-2xl mx-auto">
-                "Mit Leidenschaft und traditionellem Handwerk - ehrlich gebraute Biere von höchster Qualität"
+                &ldquo;Mit Leidenschaft und traditionellem Handwerk - ehrlich gebraute Biere von höchster Qualität&rdquo;
               </p>
             </div>
           </ScrollReveal>
@@ -308,7 +308,7 @@ export default function HomePage() {
                   <div className="text-3xl">💥</div>
                 </div>
                 <div className="text-2xl font-black text-brewery-dark-brown mb-3 group-hover:text-brewery-rust-red transition-colors duration-300">
-                  IPA "Hopfenbombe"
+                  IPA &ldquo;Hopfenbombe&rdquo;
                 </div>
                 <div className="text-base font-bold text-brewery-brown-gray mb-4 bg-brewery-hop-green/20 px-4 py-2 rounded-xl">
                   Kommt bald
@@ -385,9 +385,9 @@ export default function HomePage() {
           <ScrollReveal direction="up" delay={0.6}>
             <div className="bg-brewery-dark-brown/60 backdrop-blur-md rounded-2xl p-8 md:p-12 border-2 border-brewery-rust-red/30 shadow-2xl mb-10">
               <p className="text-xl md:text-3xl leading-relaxed font-medium text-brewery-sand-beige italic mb-6">
-                "Mit <span className="text-brewery-malt-yellow font-bold">Leidenschaft</span> und 
+                &ldquo;Mit <span className="text-brewery-malt-yellow font-bold">Leidenschaft</span> und 
                 <span className="text-brewery-malt-yellow font-bold"> traditionellem Handwerk</span> entstehen seit 2012 in Leezen 
-                ehrliche Biere von höchster Qualität."
+                ehrliche Biere von höchster Qualität.&rdquo;
               </p>
               <p className="text-lg md:text-xl leading-relaxed text-brewery-sand-beige/90">
                 Jeder Sud wird mit ausgewählten Rohstoffen und viel Zeit gebraut. 

@@ -160,7 +160,6 @@ export function StaggerItem({
       y: 0,
       x: 0,
       scale: 1,
-{}
     }
   }
 

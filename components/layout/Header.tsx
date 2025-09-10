@@ -276,7 +276,7 @@ export default function Header() {
                 HENNINGS
               </h2>
               <p className="text-brewery-sand-beige text-lg font-medium italic">
-                "Ehrlich gebrautes Bier"
+                &ldquo;Ehrlich gebrautes Bier&rdquo;
               </p>
             </div>
 
