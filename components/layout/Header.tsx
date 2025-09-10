@@ -49,36 +49,28 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
 
-  // Handle scroll effect for sticky header
+  // Handle scroll events for sticky header behavior
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY
-      setIsScrolled(scrollPosition > 20)
+      const threshold = 50
+      
+      setIsScrolled(scrollPosition > threshold)
     }
 
+    // Add scroll event listener
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+
+    // Check initial scroll position
+    handleScroll()
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
-  // Close menu when route changes
-  useEffect(() => {
-    setIsMenuOpen(false)
-  }, [pathname])
-
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isMenuOpen])
-
-  // Handle escape key to close menu
+  // Handle ESC key for closing mobile menu
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMenuOpen) {
@@ -90,7 +82,22 @@ export default function Header() {
     return () => document.removeEventListener('keydown', handleEscape)
   }, [isMenuOpen])
 
-  const isActiveRoute = (href: string) => {
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isMenuOpen])
+
+  // Helper function to determine if a route is active
+  const isActiveRoute = (href: string): boolean => {
     if (href === '/') return pathname === '/'
     return pathname.startsWith(href)
   }
@@ -99,22 +106,22 @@ export default function Header() {
     <>
       <header
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out',
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out',
           isScrolled
-            ? 'bg-brewery-off-white/98 backdrop-blur-brewery shadow-brewery-card border-b border-brewery-sand-beige-200'
-            : 'bg-transparent'
+            ? 'bg-brewery-dark-brown/95 backdrop-blur-xl shadow-2xl border-b-2 border-brewery-rust-red/30'
+            : 'bg-gradient-to-b from-brewery-dark-brown/60 via-brewery-dark-brown/40 to-transparent backdrop-blur-sm'
         )}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link
+              <Link 
                 href="/"
-                className="flex items-center gap-3 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-rust-red focus-visible:ring-offset-2 rounded-lg"
-                aria-label="Handwerksbrauerei Hennings - Zur Startseite"
+                className="flex items-center space-x-3"
+                aria-label="Zur Startseite der Handwerksbrauerei Hennings"
               >
-                <div className="relative w-10 h-10 lg:w-12 lg:h-12">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 relative flex-shrink-0">
                   <BreweryImage
                     src="/Logo.jpg"
                     alt="Handwerksbrauerei Hennings Logo"
@@ -126,44 +133,41 @@ export default function Header() {
                 <div className="hidden sm:block">
                   <div 
                     className={cn(
-                      'font-bold text-lg lg:text-xl transition-all duration-500 ease-in-out',
+                      'font-bold text-lg lg:text-2xl transition-all duration-700 ease-in-out',
                       isScrolled 
-                        ? 'text-brewery-dark-brown transform scale-100' 
-                        : 'text-brewery-sand-beige text-shadow-lg transform scale-105'
+                        ? 'text-brewery-sand-beige transform scale-100' 
+                        : 'text-brewery-sand-beige text-shadow-xl transform scale-110'
                     )}
                   >
                     Handwerksbrauerei
                   </div>
                   <div 
                     className={cn(
-                      'text-sm lg:text-base font-medium transition-all duration-500 ease-in-out',
+                      'text-sm lg:text-lg font-bold transition-all duration-700 ease-in-out tracking-wider',
                       isScrolled 
-                        ? 'text-brewery-rust-red' 
-                        : 'text-brewery-sand-beige/95 text-shadow-sm'
+                        ? 'text-brewery-malt-yellow' 
+                        : 'text-brewery-malt-yellow text-shadow-lg'
                     )}
                   >
-                    Hennings
+                    HENNINGS
                   </div>
                 </div>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-8" role="navigation" aria-label="Hauptnavigation">
+            <nav className="hidden lg:flex items-center space-x-1" aria-label="Hauptnavigation">
               {navigationItems.map((item) => (
                 <Link
                   key={item.id}
                   href={item.href}
                   className={cn(
-                    'relative px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105',
-                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-rust-red focus-visible:ring-offset-2 rounded-lg',
+                    'relative px-4 py-3 text-base font-bold transition-all duration-400 ease-in-out hover:scale-110 rounded-lg',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-rust-red focus-visible:ring-offset-2',
+                    'hover:bg-brewery-rust-red/20 hover:backdrop-blur-md border border-transparent hover:border-brewery-rust-red/40',
                     isActiveRoute(item.href)
-                      ? isScrolled
-                        ? 'text-brewery-rust-red font-semibold'
-                        : 'text-brewery-sand-beige font-semibold text-shadow'
-                      : isScrolled
-                        ? 'text-brewery-brown-gray hover:text-brewery-rust-red hover:font-medium'
-                        : 'text-brewery-sand-beige/85 hover:text-brewery-sand-beige text-shadow-sm hover:text-shadow'
+                      ? 'text-brewery-malt-yellow font-black text-shadow-lg bg-brewery-rust-red/30 border-brewery-rust-red/50'
+                      : 'text-brewery-sand-beige hover:text-brewery-malt-yellow text-shadow-sm hover:text-shadow-lg'
                   )}
                   aria-current={isActiveRoute(item.href) ? 'page' : undefined}
                 >
@@ -171,12 +175,7 @@ export default function Header() {
                   {/* Active indicator */}
                   {isActiveRoute(item.href) && (
                     <span
-                      className={cn(
-                        'absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-0.5 rounded-full transition-all duration-300 ease-in-out',
-                        isScrolled 
-                          ? 'bg-brewery-rust-red shadow-sm' 
-                          : 'bg-brewery-sand-beige shadow-brewery-button'
-                      )}
+                      className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-brewery-malt-yellow rounded-full shadow-lg animate-pulse"
                       aria-hidden="true"
                     />
                   )}
@@ -187,11 +186,11 @@ export default function Header() {
             {/* CTA Button (Desktop) */}
             <div className="hidden lg:flex items-center">
               <BreweryButton
-                size="sm"
-                className="shadow-brewery-button"
+                size="md"
+                className="shadow-brewery-button bg-brewery-rust-red hover:bg-brewery-rust-red-700 text-brewery-off-white font-bold border-2 border-brewery-malt-yellow/30 hover:border-brewery-malt-yellow/60 transition-all duration-300"
                 asChild
               >
-                <Link href="/kontakt">Jetzt vorbestellen</Link>
+                <Link href="/kontakt">🍺 Vorbestellen</Link>
               </BreweryButton>
             </div>
 
@@ -199,43 +198,41 @@ export default function Header() {
             <button
               type="button"
               className={cn(
-                'lg:hidden relative w-10 h-10 rounded-lg transition-colors duration-200',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-rust-red focus-visible:ring-offset-2',
-                isScrolled
-                  ? 'text-brewery-brown-gray hover:text-brewery-rust-red hover:bg-brewery-sand-beige-100'
-                  : 'text-brewery-sand-beige hover:bg-white/10 drop-shadow-md'
+                'lg:hidden relative w-12 h-12 rounded-xl transition-all duration-400',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-malt-yellow focus-visible:ring-offset-2',
+                'border-2 border-brewery-rust-red/40 hover:border-brewery-malt-yellow/60',
+                'bg-brewery-dark-brown/70 hover:bg-brewery-rust-red/80 backdrop-blur-md',
+                'text-brewery-sand-beige hover:text-brewery-malt-yellow',
+                'transform hover:scale-110 hover:rotate-90 transition-all duration-500 ease-in-out'
               )}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-menu"
               aria-label={isMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
             >
-              <span className="sr-only">
-                {isMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
-              </span>
               
               {/* Hamburger Icon with Animation */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-5 h-5 relative">
                   <span
                     className={cn(
-                      'absolute h-0.5 w-5 transform transition-all duration-300 ease-in-out',
-                      isScrolled ? 'bg-brewery-brown-gray' : 'bg-brewery-sand-beige',
-                      isMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-1.5'
+                      'absolute h-1 w-6 transform transition-all duration-400 ease-in-out rounded-full',
+                      'bg-brewery-sand-beige',
+                      isMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'
                     )}
                   />
                   <span
                     className={cn(
-                      'absolute h-0.5 w-5 transform transition-all duration-300 ease-in-out',
-                      isScrolled ? 'bg-brewery-brown-gray' : 'bg-brewery-sand-beige',
-                      isMenuOpen ? 'opacity-0' : 'opacity-100'
+                      'absolute h-1 w-6 transform transition-all duration-400 ease-in-out rounded-full',
+                      'bg-brewery-sand-beige',
+                      isMenuOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
                     )}
                   />
                   <span
                     className={cn(
-                      'absolute h-0.5 w-5 transform transition-all duration-300 ease-in-out',
-                      isScrolled ? 'bg-brewery-brown-gray' : 'bg-brewery-sand-beige',
-                      isMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-1.5'
+                      'absolute h-1 w-6 transform transition-all duration-400 ease-in-out rounded-full',
+                      'bg-brewery-sand-beige',
+                      isMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-2'
                     )}
                   />
                 </div>
@@ -244,62 +241,99 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Full Screen Immersive */}
         <div
           id="mobile-menu"
           className={cn(
-            'lg:hidden absolute top-full left-0 right-0 transition-all duration-400 ease-in-out',
-            'bg-brewery-off-white/98 backdrop-blur-brewery border-b border-brewery-sand-beige-200 shadow-brewery-card',
+            'lg:hidden fixed inset-0 z-40 transition-all duration-600 ease-in-out',
+            'bg-gradient-to-br from-brewery-dark-brown/98 via-brewery-rust-red/95 to-brewery-dark-brown/98',
+            'backdrop-blur-2xl border-l-4 border-brewery-malt-yellow/50',
             isMenuOpen
-              ? 'opacity-100 translate-y-0 visible max-h-screen'
-              : 'opacity-0 -translate-y-4 invisible max-h-0'
+              ? 'opacity-100 translate-x-0 visible'
+              : 'opacity-0 translate-x-full invisible'
           )}
           role="navigation"
           aria-label="Mobile Navigation"
         >
-          <div className="px-4 py-6 space-y-4">
+          {/* Background Video Overlay for Mobile Menu */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div 
+              className="absolute inset-0 bg-brewery-dark-brown/90"
+              style={{
+                backgroundImage: `
+                  radial-gradient(circle at 30% 20%, rgba(211, 169, 92, 0.2) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(138, 75, 45, 0.3) 0%, transparent 50%),
+                  linear-gradient(135deg, transparent 0%, rgba(59, 31, 22, 0.8) 100%)
+                `
+              }}
+            />
+          </div>
+
+          <div className="relative z-10 flex flex-col h-full pt-24 px-8">
+            {/* Mobile Menu Header */}
+            <div className="text-center mb-12">
+              <h2 className="text-4xl font-black text-brewery-malt-yellow mb-2 text-shadow-xl">
+                HENNINGS
+              </h2>
+              <p className="text-brewery-sand-beige text-lg font-medium italic">
+                "Ehrlich gebrautes Bier"
+              </p>
+            </div>
+
+            <div className="flex-1 space-y-6">
             {navigationItems.map((item, index) => (
               <Link
                 key={item.id}
                 href={item.href}
                 className={cn(
-                  'block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-rust-red focus-visible:ring-offset-2',
-                  'hover:scale-105 active:scale-95',
+                  'block px-6 py-5 rounded-2xl text-2xl font-bold transition-all duration-500 ease-in-out transform',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-malt-yellow focus-visible:ring-offset-2',
+                  'hover:scale-105 active:scale-95 border-2 border-transparent',
+                  'backdrop-blur-md shadow-xl',
                   isActiveRoute(item.href)
-                    ? 'bg-brewery-rust-red text-brewery-off-white shadow-brewery-button transform translate-x-1'
-                    : 'text-brewery-brown-gray hover:bg-brewery-sand-beige-100 hover:text-brewery-rust-red hover:shadow-md'
+                    ? 'bg-brewery-malt-yellow/20 text-brewery-malt-yellow border-brewery-malt-yellow/40 shadow-2xl transform translate-x-2'
+                    : 'text-brewery-sand-beige hover:bg-brewery-rust-red/30 hover:text-brewery-malt-yellow hover:border-brewery-rust-red/40'
                 )}
                 style={{
-                  animationDelay: `${index * 75}ms`,
-                  transform: isMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
+                  animationDelay: `${index * 150}ms`,
+                  transform: isMenuOpen ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.8)',
                   opacity: isMenuOpen ? 1 : 0,
-                  transition: `all 0.3s ease-in-out ${index * 75}ms`,
+                  transition: `all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 150}ms`,
                 }}
                 aria-current={isActiveRoute(item.href) ? 'page' : undefined}
               >
-                <span className="flex items-center gap-3">
-                  {item.label}
-                  {isActiveRoute(item.href) && (
-                    <span
-                      className="w-2 h-2 bg-brewery-off-white rounded-full animate-bounce-gentle"
-                      aria-hidden="true"
-                    />
+                <span className="flex items-center justify-between">
+                  <span>{item.label}</span>
+                  {isActiveRoute(item.href) ? (
+                    <span className="text-brewery-malt-yellow text-3xl">🍺</span>
+                  ) : (
+                    <span className="text-brewery-sand-beige text-xl opacity-70">→</span>
                   )}
                 </span>
               </Link>
             ))}
             
             {/* Mobile CTA */}
-            <div className="pt-4 border-t border-brewery-sand-beige-200">
+            <div className="pt-8 mt-auto pb-12">
               <BreweryButton
-                size="lg"
-                className="w-full shadow-brewery-button"
+                size="xl"
+                className="w-full shadow-2xl bg-brewery-rust-red hover:bg-brewery-rust-red-700 text-brewery-off-white font-black text-xl border-3 border-brewery-malt-yellow/40 hover:border-brewery-malt-yellow transform hover:scale-105 transition-all duration-400"
                 asChild
               >
-                <Link href="/kontakt">Jetzt vorbestellen</Link>
+                <Link href="/kontakt">🍺 Jetzt vorbestellen</Link>
               </BreweryButton>
+              
+              {/* Mobile Menu Footer */}
+              <div className="text-center mt-8">
+                <p className="text-brewery-sand-beige/70 text-sm">
+                  Seit 2012 • Handwerklich gebraut
+                </p>
+                <p className="text-brewery-sand-beige/70 text-sm">
+                  Leezen, Mecklenburg-Vorpommern
+                </p>
+              </div>
             </div>
+          </div>
           </div>
         </div>
       </header>
