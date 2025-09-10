@@ -6,22 +6,27 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section with Video Background */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section 
+        className="relative h-screen flex items-center justify-center overflow-hidden"
+        aria-label="Hero-Bereich mit Video-Hintergrund"
+        role="banner"
+      >
         {/* Hero Video Background */}
         <div className="absolute inset-0 z-0">
           <video
-            className="w-full h-full object-cover"
+            className="video-hero"
             autoPlay
             muted
             loop
             playsInline
             poster="/hero-poster.jpg"
+            aria-label="Hintergrundvideo der Handwerksbrauerei Hennings"
           >
             <source src="/Video_Hero.webm" type="video/webm" />
             {/* Fallback image */}
             <Image
               src="/hero-poster.jpg"
-              alt="Handwerksbrauerei Hennings"
+              alt="Handwerksbrauerei Hennings - Traditionelle Brauerei in Leezen mit handwerklich gebrauten Craft-Bieren"
               fill
               className="object-cover"
               priority
@@ -29,15 +34,15 @@ export default function HomePage() {
           </video>
         </div>
 
-        {/* Dark Overlay for better text contrast */}
-        <div className="absolute inset-0 bg-black/40 z-10" />
+        {/* Subtle Overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/20 z-10" />
 
         {/* Hero Content */}
         <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-shadow-xl">
             Handwerksbrauerei Hennings
           </h1>
-          <p className="text-xl md:text-2xl mb-8 drop-shadow-md">
+          <p className="text-xl md:text-2xl mb-8 text-shadow-lg">
             Ehrlich gebrautes Bier aus Leezen, Mecklenburg-Vorpommern
           </p>
           
@@ -80,9 +85,12 @@ export default function HomePage() {
       </section>
 
       {/* Next Sales Date Section */}
-      <section className="py-16 bg-brewery-off-white">
+      <section 
+        className="py-16 bg-brewery-off-white"
+        aria-labelledby="next-sales-heading"
+      >
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-brewery-dark-brown mb-8">
+          <h2 id="next-sales-heading" className="text-3xl md:text-4xl font-bold text-brewery-dark-brown mb-8">
             Nächster Verkaufstermin
           </h2>
           
@@ -125,26 +133,29 @@ export default function HomePage() {
       </section>
 
       {/* Featured Beer Section */}
-      <section className="py-16 bg-white">
+      <section 
+        className="py-16 bg-white"
+        aria-labelledby="beers-heading"
+      >
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-brewery-dark-brown mb-12">
+          <h2 id="beers-heading" className="text-3xl md:text-4xl font-bold text-center text-brewery-dark-brown mb-12">
             Unsere Biere
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Featured Beer Card */}
-            <div className="card-brewery bg-brewery-off-white-50 overflow-hidden">
+            <article className="card-brewery bg-brewery-off-white-50 overflow-hidden" role="article" aria-labelledby="pale-ale-title">
               <div className="aspect-brewery-card relative">
                 <BreweryImage
                   src="/Bier_Pale_Ale.png"
-                  alt="Hennings Pale Ale - Fruchtiges Pale Ale mit Zitrusnote"
+                  alt="Hennings Pale Ale - Fruchtiges Craft-Bier mit 5,7% Vol., 42 IBU, goldene Farbe und amerikanischem Cascade-Hopfen mit Zitrusnoten"
                   aspectRatio="brewery-card"
                   priority
                   className="transition-transform duration-300 hover:scale-105"
                 />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-brewery-dark-brown mb-2">
+                <h3 id="pale-ale-title" className="text-xl font-bold text-brewery-dark-brown mb-2">
                   Hennings Pale Ale
                 </h3>
                 <p className="text-brewery-rust-red text-sm mb-4 font-medium">
@@ -154,18 +165,18 @@ export default function HomePage() {
                   Fruchtiges Pale Ale mit deutlicher Zitrusnote durch amerikanischen 
                   Cascade-Hopfen. Karamellmalz verleiht dem Bier Körper und Balance.
                 </p>
-                <div className="mt-4 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-brewery-hop-green rounded-full"></div>
+                <div className="mt-4 flex items-center gap-2" role="status" aria-live="polite">
+                  <div className="w-2 h-2 bg-brewery-hop-green rounded-full" aria-hidden="true"></div>
                   <span className="text-xs text-brewery-hop-green font-medium">Aktuell verfügbar</span>
                 </div>
               </div>
-            </div>
+            </article>
 
             {/* Placeholder cards for other beers */}
-            <div className="card-brewery bg-brewery-sand-beige-50 p-6 flex items-center justify-center">
+            <div className="card-brewery bg-brewery-sand-beige-50 p-6 flex items-center justify-center" role="article" aria-label="Helles Lagerbier - Bald verfügbar">
               <div className="text-center text-brewery-brown-gray">
                 <div className="w-16 h-16 bg-brewery-sand-beige rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-brewery-rust-red" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-brewery-rust-red" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
                 </div>
@@ -174,10 +185,10 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="card-brewery bg-brewery-sand-beige-50 p-6 flex items-center justify-center">
+            <div className="card-brewery bg-brewery-sand-beige-50 p-6 flex items-center justify-center" role="article" aria-label="IPA Hopfenbombe - Bald verfügbar">
               <div className="text-center text-brewery-brown-gray">
                 <div className="w-16 h-16 bg-brewery-sand-beige rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-brewery-rust-red" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-8 h-8 text-brewery-rust-red" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                   </svg>
                 </div>
@@ -196,9 +207,12 @@ export default function HomePage() {
       </section>
 
       {/* About Preview Section */}
-      <section className="py-16 bg-brewery-dark-brown text-brewery-sand-beige">
+      <section 
+        className="py-16 bg-brewery-dark-brown text-brewery-sand-beige"
+        aria-labelledby="about-heading"
+      >
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-shadow">
+          <h2 id="about-heading" className="text-3xl md:text-4xl font-bold mb-8 text-shadow">
             Braumeister Tim Hennings
           </h2>
           <p className="text-lg md:text-xl leading-relaxed mb-8 opacity-90">

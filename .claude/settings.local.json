@@ -23,7 +23,8 @@
       "Bash(ffprobe:*)",
       "Bash(npx kill-port:*)",
       "WebFetch(domain:stackoverflow.com)",
-      "Bash(dir /s)"
+      "Bash(dir /s)",
+      "Bash(dir \"C:\\Github Projekte\\Brauerei-Tim-Henning\\public\")"
     ],
     "deny": [],
     "ask": []

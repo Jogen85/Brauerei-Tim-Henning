@@ -99,9 +99,9 @@ export default function Header() {
     <>
       <header
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out',
           isScrolled
-            ? 'bg-brewery-off-white/95 backdrop-blur-brewery shadow-brewery-card border-b border-brewery-sand-beige-200'
+            ? 'bg-brewery-off-white/98 backdrop-blur-brewery shadow-brewery-card border-b border-brewery-sand-beige-200'
             : 'bg-transparent'
         )}
       >
@@ -126,20 +126,20 @@ export default function Header() {
                 <div className="hidden sm:block">
                   <div 
                     className={cn(
-                      'font-bold text-lg lg:text-xl transition-colors duration-300',
+                      'font-bold text-lg lg:text-xl transition-all duration-500 ease-in-out',
                       isScrolled 
-                        ? 'text-brewery-dark-brown' 
-                        : 'text-brewery-sand-beige drop-shadow-md'
+                        ? 'text-brewery-dark-brown transform scale-100' 
+                        : 'text-brewery-sand-beige text-shadow-lg transform scale-105'
                     )}
                   >
                     Handwerksbrauerei
                   </div>
                   <div 
                     className={cn(
-                      'text-sm lg:text-base font-medium transition-colors duration-300',
+                      'text-sm lg:text-base font-medium transition-all duration-500 ease-in-out',
                       isScrolled 
                         ? 'text-brewery-rust-red' 
-                        : 'text-brewery-sand-beige/90 drop-shadow-sm'
+                        : 'text-brewery-sand-beige/95 text-shadow-sm'
                     )}
                   >
                     Hennings
@@ -155,15 +155,15 @@ export default function Header() {
                   key={item.id}
                   href={item.href}
                   className={cn(
-                    'relative px-3 py-2 text-sm font-medium transition-all duration-200 hover:scale-105',
+                    'relative px-3 py-2 text-sm font-medium transition-all duration-300 ease-in-out hover:scale-105',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-rust-red focus-visible:ring-offset-2 rounded-lg',
                     isActiveRoute(item.href)
                       ? isScrolled
-                        ? 'text-brewery-rust-red'
-                        : 'text-brewery-sand-beige'
+                        ? 'text-brewery-rust-red font-semibold'
+                        : 'text-brewery-sand-beige font-semibold text-shadow'
                       : isScrolled
-                        ? 'text-brewery-brown-gray hover:text-brewery-rust-red'
-                        : 'text-brewery-sand-beige/80 hover:text-brewery-sand-beige drop-shadow-sm'
+                        ? 'text-brewery-brown-gray hover:text-brewery-rust-red hover:font-medium'
+                        : 'text-brewery-sand-beige/85 hover:text-brewery-sand-beige text-shadow-sm hover:text-shadow'
                   )}
                   aria-current={isActiveRoute(item.href) ? 'page' : undefined}
                 >
@@ -172,8 +172,10 @@ export default function Header() {
                   {isActiveRoute(item.href) && (
                     <span
                       className={cn(
-                        'absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full transition-colors duration-300',
-                        isScrolled ? 'bg-brewery-rust-red' : 'bg-brewery-sand-beige'
+                        'absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-0.5 rounded-full transition-all duration-300 ease-in-out',
+                        isScrolled 
+                          ? 'bg-brewery-rust-red shadow-sm' 
+                          : 'bg-brewery-sand-beige shadow-brewery-button'
                       )}
                       aria-hidden="true"
                     />
@@ -246,11 +248,11 @@ export default function Header() {
         <div
           id="mobile-menu"
           className={cn(
-            'lg:hidden absolute top-full left-0 right-0 transition-all duration-300 ease-in-out',
-            'bg-brewery-off-white/98 backdrop-blur-brewery border-b border-brewery-sand-beige-200',
+            'lg:hidden absolute top-full left-0 right-0 transition-all duration-400 ease-in-out',
+            'bg-brewery-off-white/98 backdrop-blur-brewery border-b border-brewery-sand-beige-200 shadow-brewery-card',
             isMenuOpen
-              ? 'opacity-100 translate-y-0 visible'
-              : 'opacity-0 -translate-y-2 invisible'
+              ? 'opacity-100 translate-y-0 visible max-h-screen'
+              : 'opacity-0 -translate-y-4 invisible max-h-0'
           )}
           role="navigation"
           aria-label="Mobile Navigation"
@@ -261,14 +263,18 @@ export default function Header() {
                 key={item.id}
                 href={item.href}
                 className={cn(
-                  'block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200',
+                  'block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ease-in-out transform',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brewery-rust-red focus-visible:ring-offset-2',
+                  'hover:scale-105 active:scale-95',
                   isActiveRoute(item.href)
-                    ? 'bg-brewery-rust-red text-brewery-off-white shadow-md'
-                    : 'text-brewery-brown-gray hover:bg-brewery-sand-beige-100 hover:text-brewery-rust-red'
+                    ? 'bg-brewery-rust-red text-brewery-off-white shadow-brewery-button transform translate-x-1'
+                    : 'text-brewery-brown-gray hover:bg-brewery-sand-beige-100 hover:text-brewery-rust-red hover:shadow-md'
                 )}
                 style={{
-                  animationDelay: `${index * 50}ms`,
+                  animationDelay: `${index * 75}ms`,
+                  transform: isMenuOpen ? 'translateX(0)' : 'translateX(-20px)',
+                  opacity: isMenuOpen ? 1 : 0,
+                  transition: `all 0.3s ease-in-out ${index * 75}ms`,
                 }}
                 aria-current={isActiveRoute(item.href) ? 'page' : undefined}
               >
@@ -276,7 +282,7 @@ export default function Header() {
                   {item.label}
                   {isActiveRoute(item.href) && (
                     <span
-                      className="w-2 h-2 bg-brewery-off-white rounded-full"
+                      className="w-2 h-2 bg-brewery-off-white rounded-full animate-bounce-gentle"
                       aria-hidden="true"
                     />
                   )}
@@ -301,9 +307,12 @@ export default function Header() {
       {/* Backdrop for mobile menu */}
       {isMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-brewery-dark-brown/50 backdrop-blur-sm z-40"
+          className="lg:hidden fixed inset-0 bg-brewery-dark-brown/50 backdrop-blur-sm z-40 transition-opacity duration-400 ease-in-out"
           onClick={() => setIsMenuOpen(false)}
           aria-hidden="true"
+          style={{
+            opacity: isMenuOpen ? 1 : 0,
+          }}
         />
       )}
     </>

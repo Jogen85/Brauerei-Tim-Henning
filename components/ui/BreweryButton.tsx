@@ -52,7 +52,7 @@ const BreweryButton = forwardRef<HTMLButtonElement, BreweryButtonProps>(
         'hover:bg-brewery-rust-red-600 hover:border-brewery-rust-red-600',
         'hover:shadow-brewery-button hover:transform hover:-translate-y-1',
         'active:transform active:translate-y-0 active:shadow-none',
-        'shadow-md',
+        'shadow-md transition-all duration-300 ease-in-out',
       ].join(' '),
       
       secondary: [
@@ -61,7 +61,7 @@ const BreweryButton = forwardRef<HTMLButtonElement, BreweryButtonProps>(
         'hover:bg-brewery-dark-brown-600 hover:border-brewery-dark-brown-600',
         'hover:shadow-lg hover:transform hover:-translate-y-0.5',
         'active:transform active:translate-y-0',
-        'shadow-sm',
+        'shadow-sm transition-all duration-300 ease-in-out',
       ].join(' '),
       
       outline: [
@@ -70,6 +70,7 @@ const BreweryButton = forwardRef<HTMLButtonElement, BreweryButtonProps>(
         'hover:bg-brewery-rust-red hover:text-white',
         'hover:shadow-md hover:transform hover:-translate-y-0.5',
         'active:transform active:translate-y-0',
+        'transition-all duration-300 ease-in-out',
       ].join(' '),
       
       ghost: [
@@ -78,6 +79,7 @@ const BreweryButton = forwardRef<HTMLButtonElement, BreweryButtonProps>(
         'hover:bg-brewery-rust-red-50 hover:text-brewery-rust-red-700',
         'hover:shadow-sm',
         'active:bg-brewery-rust-red-100',
+        'transition-all duration-300 ease-in-out',
       ].join(' '),
       
       link: [
@@ -85,7 +87,7 @@ const BreweryButton = forwardRef<HTMLButtonElement, BreweryButtonProps>(
         'border-transparent underline-offset-4',
         'hover:underline hover:text-brewery-rust-red-600',
         'active:text-brewery-rust-red-700',
-        'shadow-none',
+        'shadow-none transition-all duration-300 ease-in-out',
       ].join(' '),
     }
 
@@ -104,8 +106,8 @@ const BreweryButton = forwardRef<HTMLButtonElement, BreweryButtonProps>(
       <>
         {/* Shimmer effect for primary button */}
         {variant === 'primary' && (
-          <span className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500">
-            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer bg-[length:200%_100%]" />
+          <span className="absolute inset-0 opacity-0 hover:opacity-30 transition-opacity duration-500 pointer-events-none">
+            <span className="absolute inset-0 animate-shimmer" />
           </span>
         )}
 

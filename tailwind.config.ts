@@ -18,10 +18,10 @@ const config: Config = {
             300: 'color-mix(in srgb, #3B1F16 60%, white)',
             400: 'color-mix(in srgb, #3B1F16 80%, white)',
             500: '#3B1F16',
-            600: 'color-mix(in srgb, #3B1F16 80%, black)',
-            700: 'color-mix(in srgb, #3B1F16 60%, black)',
-            800: 'color-mix(in srgb, #3B1F16 40%, black)',
-            900: 'color-mix(in srgb, #3B1F16 20%, black)',
+            600: 'color-mix(in srgb, #3B1F16 90%, black)',
+            700: 'color-mix(in srgb, #3B1F16 75%, black)',
+            800: 'color-mix(in srgb, #3B1F16 50%, black)',
+            900: 'color-mix(in srgb, #3B1F16 25%, black)',
             DEFAULT: '#3B1F16',
           },
           'sand-beige': {
@@ -44,10 +44,10 @@ const config: Config = {
             300: 'color-mix(in srgb, #8A4B2D 60%, white)',
             400: 'color-mix(in srgb, #8A4B2D 80%, white)',
             500: '#8A4B2D',
-            600: 'color-mix(in srgb, #8A4B2D 80%, black)',
-            700: 'color-mix(in srgb, #8A4B2D 60%, black)',
-            800: 'color-mix(in srgb, #8A4B2D 40%, black)',
-            900: 'color-mix(in srgb, #8A4B2D 20%, black)',
+            600: 'color-mix(in srgb, #8A4B2D 90%, black)',
+            700: 'color-mix(in srgb, #8A4B2D 75%, black)',
+            800: 'color-mix(in srgb, #8A4B2D 50%, black)',
+            900: 'color-mix(in srgb, #8A4B2D 25%, black)',
             DEFAULT: '#8A4B2D',
           },
           'off-white': {
@@ -273,7 +273,7 @@ const config: Config = {
   },
   plugins: [
     // Add custom utilities
-    function({ addUtilities }: { addUtilities: any }) {
+    function({ addUtilities }: { addUtilities: (utilities: Record<string, Record<string, string>>) => void }) {
       addUtilities({
         '.text-shadow-sm': {
           textShadow: '1px 1px 2px rgba(59, 31, 22, 0.5)',
